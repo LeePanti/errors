@@ -3,19 +3,35 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 )
 
-func area(lenght float64, width float64) float64 {
-	return lenght * width
+func area(length float64, width float64) (float64, error) {
+	// check if length is greater than 0
+	if length < 0 {
+		err := errors.New("cannot have a negative length")
+		return -1, err
+	}
+	if width < 0 {
+		err := errors.New("cannot have a negative length")
+		return -1, err
+	}
+
+	result := length * width
+	return result, nil
 }
 
 func main() {
-	lenght := 5.5
+	length := 5.5
 	width := 10
 
-	result := area(lenght, float64(width))
+	result, err := area(length, float64(width))
+
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println(result)
-	log.Println(result)
+
 }
